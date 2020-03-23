@@ -32,11 +32,16 @@ class FeeAdapter(val list: MutableList<DBFeeDetail>,lifecycleOwner: LifecycleOwn
 
         holder.view.apply {
             fee=item
-            if (item.feeType=="カート価格"){
-            feeIcon.setImageResource(R.drawable.ic_shopping_cart_black_24dp)
-            }
-            else{
-                feeAmount.setTextColor(ContextCompat.getColor(root.context,R.color.red))
+            when (item.feeType) {
+                "カート価格" -> {
+                    feeIcon.setImageResource(R.drawable.ic_shopping_cart_black_24dp)
+                }
+                "損益分岐価格" -> {
+                    feeIcon.setImageResource(R.drawable.ic_attach_money_black_24dp)
+                }
+                else -> {
+                    feeAmount.setTextColor(ContextCompat.getColor(root.context,R.color.red))
+                }
             }
             feeTitle.text=when(item.feeType){
                 "FBAFees"->"FBA手数料"

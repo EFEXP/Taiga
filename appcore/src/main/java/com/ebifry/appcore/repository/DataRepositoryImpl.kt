@@ -50,8 +50,9 @@ class DataRepositoryImpl @Inject constructor(private val db:AppDatabase):DataRep
     }
 
     override suspend fun dispatchFees(list:List<FeeDetail>,asin:String){
+        if (list.isNotEmpty()){
         val l=list.map { DBFeeDetail(Date(),it.totalAmount.roundToInt(),it.feeType,asin) }.toTypedArray()
-        db.feeDao().insertAll(*l)
+        db.feeDao().insertAll(*l)}
     }
 
 

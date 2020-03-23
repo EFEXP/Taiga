@@ -11,20 +11,16 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelStoreOwner
-import androidx.navigation.findNavController
 import com.ebifry.appcore.R
 import com.ebifry.appcore.databinding.ActivityMainBinding
 import com.ebifry.appcore.ui.viewmodel.MainViewModel
-import com.google.firebase.analytics.FirebaseAnalytics
-import dagger.android.HasAndroidInjector
 
 import kotlinx.android.synthetic.main.activity_main.*
-import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() ,ViewModelStoreOwner {
 
     private val viewModel: MainViewModel by viewModels()
-    private val PERMISSION_REQUEST=100
+    private val REQUEST=100
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +29,7 @@ class MainActivity : AppCompatActivity() ,ViewModelStoreOwner {
            setFragment()
         }
         else{
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA),PERMISSION_REQUEST)
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA),REQUEST)
         }
 
     }
@@ -52,7 +48,7 @@ class MainActivity : AppCompatActivity() ,ViewModelStoreOwner {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode==PERMISSION_REQUEST){
+        if (requestCode==REQUEST){
             if (grantResults[0]==PackageManager.PERMISSION_GRANTED){
                 setFragment()
             }

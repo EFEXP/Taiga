@@ -7,6 +7,7 @@ import com.ebifry.appcore.domain.dao.ScannedItemDAO
 import com.ebifry.appcore.domain.repository.AmazonRepository
 import com.ebifry.appcore.domain.repository.DataRepository
 import com.ebifry.appcore.domain.usecase.ScanApp
+import java.lang.Exception
 import javax.inject.Inject
 
 class ScanAppImpl @Inject constructor(
@@ -29,13 +30,16 @@ class ScanAppImpl @Inject constructor(
         r.forEach {
             dataRepository.dispatchCompetitive(it.prices, it.asin)
         }
-        val firstCompetitive=r.first()
-        val feeResult = amazonRepository.getMyFee(arrayListOf(firstCompetitive.asin), true,
-            arrayListOf(firstCompetitive.prices.first().price.listing))
-        feeResult.feesEstimateResultList.filter { it.status == "Success" }.forEach {
-            dataRepository.dispatchFees(it.feeDetailList, it.asin)
+        r.forEach {
+            try {
+            val feeResult = amazonRepository.getMyFee(arrayListOf(it.asin), true, arrayListOf(it.prices.first().price.listing))
+            feeResult.feesEstimateResultList.filter {w-> w.status == "Success" }.forEach {w->
+                dataRepository.dispatchFees(w.feeDetailList, it.asin)
+            }}
+            catch (ex:Exception){
+                Log.e("Hello",ex.localizedMessage!!)
+            }
         }
-
         return dataRepository.getScanHistory()
     }
 

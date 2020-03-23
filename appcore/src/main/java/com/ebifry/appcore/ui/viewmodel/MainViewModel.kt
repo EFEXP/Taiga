@@ -25,7 +25,10 @@ class MainViewModel(application:Application): AndroidViewModel(application) {
         list->
         liveData(context = viewModelScope.coroutineContext) {
             runCatching { scanApp.scanBarcode(list) }.
-            onSuccess {res:List<ScannedItemDAO.RetrievedItem>-> emit(res) }.
+            onSuccess {res:List<ScannedItemDAO.RetrievedItem>-> emit(res)
+            adapterList.clear()
+                idList.postValue(emptyList<Long>())
+            }.
             onFailure{
                 ex:Throwable->
                 Log.e("ERROR",ex.localizedMessage!!)

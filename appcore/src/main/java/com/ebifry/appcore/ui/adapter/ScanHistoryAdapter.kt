@@ -41,23 +41,31 @@ class ScanHistoryAdapter(
                     i.scannedItem.asin
                 )
             )
-            feeList.addAll(i.fees)
-            feeList.add(
+            feeList.addAll(i.fees.filterNot { it.totalAmount==0 })
+            feeList.addAll(
+                arrayOf(
                 DBFeeDetail(
                     i.scannedItem.date,
-                    i.fees.map { it.totalAmount }.reduce { acc, i -> acc + i },
-                    "合計",
+                    i.comp[0].listing.toInt()-i.fees.map { it.totalAmount }.reduce { acc, i -> acc + i },
+                    "損益分岐価格",
                     i.scannedItem.asin
                 )
+                )
+
             )
             val adapter = FeeAdapter(feeList, lOwner)
 
             holder.view.apply {
-
                 feeRecycler.layoutManager = LinearLayoutManager(root.context)
                 feeRecycler.adapter = adapter
-
-
+                separateFeeFromSum.visibility=View.VISIBLE
+                separateInfoFromFee.visibility=View.VISIBLE
+            }
+        }
+        else{
+            holder.view.apply {
+                separateFeeFromSum.visibility=View.GONE
+                separateInfoFromFee.visibility=View.GONE
             }
         }
         holder.view.apply {

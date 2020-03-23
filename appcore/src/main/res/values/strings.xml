@@ -8,4 +8,5 @@
     <string name="item_jan_code">JAN:%d</string>
     <string name="item_price_eq">FBA手数料:%1$d円 保管手数料:%2$.3f円/月</string>
     <string name="item_price_list">競合価格:%.3f</string>
+    <string name="item_fee_amount">%d円</string>
 </resources>

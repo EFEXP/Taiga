@@ -8,13 +8,13 @@ import java.util.*
 
 @Entity(
     tableName = "fee",
-    primaryKeys = arrayOf("asin","date"),
+    primaryKeys = arrayOf("asin","feeType","date"),
     foreignKeys = [ForeignKey(entity = ScannedItem::class,parentColumns = arrayOf("asin"),childColumns = arrayOf("asin"), onDelete = ForeignKey.CASCADE)],
     indices = [Index(value = ["asin"], unique = false)]
 )
 data class DBFeeDetail(
     val date:Date,
-    val totalAmount:Double,
+    val totalAmount:Int,
     val feeType:String,
     val asin:String
 )

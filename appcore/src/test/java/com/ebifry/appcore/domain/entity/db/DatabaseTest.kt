@@ -42,15 +42,13 @@ class DatabaseTest {
     @Throws(Exception::class)
     fun writeUserAndReadInList() {
         val p= arrayListOf(Product("asinx1","Jes1","hfweaf1", arrayListOf(SalesRank("cate1-1",100),SalesRank("cate1-2",20)),
-            PackageDimensions(1.0,1.0,1.0,29.0),"","",0.0))
+            PackageDimensions(1.0,1.0,1.0,29.0),"","",""))
         val s= p.map {
             ScannedItem(
                 date = Date(),
-                shipmentCharge = 0,
-                storageChargePerMonth = 0.0,
                 asin = it.asin,
-                name = it.name,
-                url = it.imageURL,
+                name = it.name?:"",
+                url = it.imageURL?:"",
                 origin = 0L,
                 restrictedCategory= false,
                 restrictedMaker= false,
@@ -58,7 +56,7 @@ class DatabaseTest {
             )
         }
         val a= arrayListOf<Ranking>()
-        p.forEach{a.addAll(it.salesRankings.map {salesRank ->
+        p.filter { !it.salesRankings.isNullOrEmpty() }.forEach{a.addAll(it.salesRankings!!.map {salesRank ->
             Ranking(
                 null,
                 salesRank.productCategory,

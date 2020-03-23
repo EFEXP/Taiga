@@ -10,8 +10,6 @@ import java.util.*
 @Entity
 data class ScannedItem(
     val date: Date,
-    val shipmentCharge:Int,
-    val storageChargePerMonth: Double,
     @PrimaryKey
     val asin: String,
     val origin:Long,

@@ -19,18 +19,4 @@ class DataRepositoryImplTest {
     fun tearDown() {
     }
 
-    @Test
-    fun calculateShippingCharge() {
-        val h= arrayOf(24,32,33,40,40)
-        val l= arrayOf(13,21,24,20,32)
-        val w= arrayOf(1,2,2,1,1)
-        val we= arrayOf(10,900,1900,3900,8000,1000)
-        val r=h.mapIndexed{i,_->
-            createProductFromCm(h[i],l[i],w[i],we[i])
-        }
-        r.forEach { println(calculateShippingCharge(it)) }
-    }
-    fun createProductFromCm(h:Int,l:Int,w:Int,we:Int):Product{
-        return Product("","","", arrayListOf(), PackageDimensions(h/2.54,l/2.54,w/2.54,we.toDouble()/2204.62),"","",0.0)
-    }
 }

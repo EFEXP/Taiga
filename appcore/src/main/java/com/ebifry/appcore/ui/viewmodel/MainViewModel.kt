@@ -30,6 +30,8 @@ class MainViewModel(application:Application): AndroidViewModel(application) {
                 ex:Throwable->
                 Log.e("ERROR",ex.localizedMessage!!)
                 errorOccur.postValue(ex.localizedMessage?:"UNKNOWN:"+ex.message)
+                //throw ex
+
             }
         }
 

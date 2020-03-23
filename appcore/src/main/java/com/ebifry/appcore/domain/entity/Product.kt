@@ -10,27 +10,25 @@ data class Product(
     val asin: String,
     @Path("AttributeSets/ns2:ItemAttributes")
     @PropertyElement(name = "ns2:Title")
-    val name: String,
+    val name: String?,
     @Path("AttributeSets/ns2:ItemAttributes/ns2:SmallImage")
     @PropertyElement(name = "ns2:URL")
-    val imageURL: String,
+    val imageURL: String?,
     @Path("SalesRankings")
     @Element
-    val salesRankings: List<SalesRank>,
+    val salesRankings: List<SalesRank>?,
     @Path("AttributeSets/ns2:ItemAttributes")
     @Element
-    val packageDimensions: PackageDimensions,
-
+    val packageDimensions: PackageDimensions?,
     @Path("AttributeSets/ns2:ItemAttributes")
     @PropertyElement(name = "ns2:Manufacturer")
-    val manufacturer: String,
+    val manufacturer: String?,
     @Path("AttributeSets/ns2:ItemAttributes")
     @PropertyElement(name = "ns2:ProductGroup")
-    val category: String,
-    @Path("AttributeSets/ns2:ItemAttributes/ns2:ListPrice")
-    @PropertyElement(name = "ns2:Amount")
-    val listPrice: Double
-
+    val category: String?,
+    @Path( "Relationships/VariationParent/Identifiers")
+    @PropertyElement(name = "ASIN")
+    val parentAsin:String?
 )
 
 @Xml(name = "ns2:PackageDimensions")
@@ -55,13 +53,20 @@ data class SalesRank(
 
 @Xml(name = "GetMatchingProductForIdResponse")
 data class GetMatchingProductForIdResponse(
-    @Path("GetMatchingProductForIdResult")
+    @Element
+    val matchingProductForIdResult: List<GetMatchingProductForIdResult>
+)
+@Xml(name = "GetMatchingProductForIdResult")
+data class GetMatchingProductForIdResult(
     @Attribute
     val status: String,
-    @Path("GetMatchingProductForIdResult/Products")
+    @Attribute(name = "Id")
+    val sentId:Long,
+    @Attribute(name = "IdType")
+    val idType:String,
+    @Path( "Products")
     @Element
-    val Products: List<Product>
+    val products:List<Product>
 )
-
 
 

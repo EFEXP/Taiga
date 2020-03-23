@@ -8,9 +8,5 @@ import java.util.*
 
 class FeeUtilsKtTest {
 
-    @Test
-    fun calculateStorageCharge() {
-       val f=calculateStorageCharge(Date(), PackageDimensions(1.0,1.0,1.0,1.0))
-        println(f)
-    }
+
 }

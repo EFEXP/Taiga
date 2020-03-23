@@ -26,6 +26,18 @@
         app:layout_constraintBottom_toBottomOf="@+id/text_asin"
         app:layout_constraintTop_toBottomOf="@+id/text_asin"
         >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fee_recycler"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@id/separate_info_from_fee" />
+
         <TextView
             android:id="@+id/text_code"
             android:layout_width="0dp"
@@ -60,19 +72,7 @@
             app:layout_constraintTop_toBottomOf="@+id/text_code"
             tools:text="ASIN649816249812" />
 
-        <TextView
-            android:id="@+id/text_price"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="@{@string/item_price_eq(item.scannedItem.shipmentCharge,item.scannedItem.storageChargePerMonth)}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/text_asin"
-            tools:text="OkHttp 3.x: There is an optional dependency available called okhttp3-integration, see the docs page." />
+
 
         <ImageView
             android:id="@+id/imageView"
@@ -86,25 +86,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             tools:srcCompat="@drawable/ic_launcher_background" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@{item.fees.toString()}"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/inner_linear_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/text_price" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup"
@@ -140,6 +121,30 @@
                 app:closeIconEnabled="false" />
 
         </com.google.android.material.chip.ChipGroup>
+
+        <View
+            android:id="@+id/separate_info_from_fee"
+            style="@style/AppTheme.Divider"
+            android:layout_width="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/text_asin" />
+
+        <TextView
+            android:id="@+id/text_timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fee_recycler"
+            tools:text="2019" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Taiga</string>
+    <string name="action_settings">Settings</string>
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="item_asin_code">ASIN:%s</string>
+    <string name="item_jan_code">JAN:%d</string>
+    <string name="item_price_eq">FBA手数料:%1$d円 保管手数料:%2$.3f円/月</string>
+    <string name="item_price_list">競合価格:%.3f</string>
+</resources>

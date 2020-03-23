@@ -1,0 +1,129 @@
+<resources>
+<string name="competitive_response"><![CDATA[<?xml version="1.0"?>
+<GetCompetitivePricingForASINResponse xmlns="http://mws.amazonservices.com/schema/Products/2011-10-01">
+  <GetCompetitivePricingForASINResult ASIN="B00186L9X2" status="Success">
+    <Product xmlns:ns2="http://mws.amazonservices.com/schema/Products/2011-10-01/default.xsd">
+      <Identifiers>
+        <MarketplaceASIN>
+          <MarketplaceId>A1VC38T7YXB528</MarketplaceId>
+          <ASIN>B00186L9X2</ASIN>
+        </MarketplaceASIN>
+      </Identifiers>
+      <CompetitivePricing>
+        <CompetitivePrices>
+          <CompetitivePrice belongsToRequester="false" condition="New" subcondition="New">
+            <CompetitivePriceId>1</CompetitivePriceId>
+            <Price>
+              <LandedPrice>
+                <CurrencyCode>JPY</CurrencyCode>
+                <Amount>15400.00</Amount>
+              </LandedPrice>
+              <ListingPrice>
+                <CurrencyCode>JPY</CurrencyCode>
+                <Amount>15400.00</Amount>
+              </ListingPrice>
+              <Shipping>
+                <CurrencyCode>JPY</CurrencyCode>
+                <Amount>0.00</Amount>
+              </Shipping>
+            </Price>
+          </CompetitivePrice>
+        </CompetitivePrices>
+        <NumberOfOfferListings>
+          <OfferListingCount condition="New">26</OfferListingCount>
+          <OfferListingCount condition="Used">6</OfferListingCount>
+          <OfferListingCount condition="Any">32</OfferListingCount>
+        </NumberOfOfferListings>
+      </CompetitivePricing>
+      <SalesRankings>
+        <SalesRank>
+          <ProductCategoryId>musical_instruments_display_on_website</ProductCategoryId>
+          <Rank>5379</Rank>
+        </SalesRank>
+        <SalesRank>
+          <ProductCategoryId>2129884051</ProductCategoryId>
+          <Rank>21</Rank>
+        </SalesRank>
+      </SalesRankings>
+    </Product>
+  </GetCompetitivePricingForASINResult>
+  <ResponseMetadata>
+    <RequestId>c0b6b4f7-90c5-407f-bb8d-6e320f674e94</RequestId>
+  </ResponseMetadata>
+</GetCompetitivePricingForASINResponse>]]]></string>
+    <string name="id_lookup_response"><![CDATA[[
+<?xml version="1.0"?>
+<GetMatchingProductForIdResponse xmlns="http://mws.amazonservices.com/schema/Products/2011-10-01">
+  <GetMatchingProductForIdResult Id="B00186L9X2" IdType="ASIN" status="Success">
+    <Products xmlns:ns2="http://mws.amazonservices.com/schema/Products/2011-10-01/default.xsd">
+      <Product>
+        <Identifiers>
+          <MarketplaceASIN>
+            <MarketplaceId>A1VC38T7YXB528</MarketplaceId>
+            <ASIN>B00186L9X2</ASIN>
+          </MarketplaceASIN>
+        </Identifiers>
+        <AttributeSets>
+          <ns2:ItemAttributes xml:lang="ja-JP">
+            <ns2:Binding>エレクトロニクス</ns2:Binding>
+            <ns2:Brand>BOSS</ns2:Brand>
+            <ns2:Format>不明な形式</ns2:Format>
+            <ns2:ItemDimensions>
+              <ns2:Height Units="inches">0.25</ns2:Height>
+              <ns2:Length Units="inches">0.5</ns2:Length>
+              <ns2:Width Units="inches">0.33</ns2:Width>
+              <ns2:Weight Units="pounds">1.23</ns2:Weight>
+            </ns2:ItemDimensions>
+            <ns2:IsAutographed>false</ns2:IsAutographed>
+            <ns2:IsMemorabilia>false</ns2:IsMemorabilia>
+            <ns2:Label>BOSS(ボス)</ns2:Label>
+            <ns2:ListPrice>
+              <ns2:Amount>0.00</ns2:Amount>
+              <ns2:CurrencyCode>JPY</ns2:CurrencyCode>
+            </ns2:ListPrice>
+            <ns2:Manufacturer>BOSS(ボス)</ns2:Manufacturer>
+            <ns2:Model>DD-7</ns2:Model>
+            <ns2:OperatingSystem>not_machine_specific</ns2:OperatingSystem>
+            <ns2:PackageDimensions>
+              <ns2:Height Units="inches">2.4409448794</ns2:Height>
+              <ns2:Length Units="inches">5.9842519624</ns2:Length>
+              <ns2:Width Units="inches">3.7795275552</ns2:Width>
+              <ns2:Weight Units="pounds">1.2345886672</ns2:Weight>
+            </ns2:PackageDimensions>
+            <ns2:PackageQuantity>1</ns2:PackageQuantity>
+            <ns2:PartNumber>DD-7</ns2:PartNumber>
+            <ns2:Platform>Not Machine Specific</ns2:Platform>
+            <ns2:ProductGroup>Musical Instruments</ns2:ProductGroup>
+            <ns2:ProductTypeName>INSTRUMENT_PARTS_AND_ACCESSORIES</ns2:ProductTypeName>
+            <ns2:Publisher>BOSS(ボス)</ns2:Publisher>
+            <ns2:SmallImage>
+              <ns2:URL>http://ecx.images-amazon.com/images/I/51RWcXrDABL._SL75_.jpg</ns2:URL>
+              <ns2:Height Units="pixels">75</ns2:Height>
+              <ns2:Width Units="pixels">60</ns2:Width>
+            </ns2:SmallImage>
+            <ns2:Studio>BOSS(ボス)</ns2:Studio>
+            <ns2:Title>BOSS Digital Delay DD-7</ns2:Title>
+          </ns2:ItemAttributes>
+        </AttributeSets>
+        <Relationships/>
+        <SalesRankings>
+          <SalesRank>
+            <ProductCategoryId>musical_instruments_display_on_website</ProductCategoryId>
+            <Rank>5965</Rank>
+          </SalesRank>
+          <SalesRank>
+            <ProductCategoryId>2129884051</ProductCategoryId>
+            <Rank>18</Rank>
+          </SalesRank>
+        </SalesRankings>
+      </Product>
+    </Products>
+  </GetMatchingProductForIdResult>
+  <ResponseMetadata>
+    <RequestId>c3697c55-a95b-4d41-bc91-39639a0378c3</RequestId>
+  </ResponseMetadata>
+</GetMatchingProductForIdResponse>
+    ]]]></string>
+
+
+</resources>

@@ -1,3 +1,4 @@
 rootProject.name='Taiga'
 include ':app'
-include ':appcore'
+include ':barcode'
+include ':appbase'

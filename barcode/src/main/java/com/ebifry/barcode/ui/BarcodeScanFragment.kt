@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ebifry.barcode.R
-import com.ebifry.barcode.databinding.FragmentFirstBinding
+import com.ebifry.barcode.databinding.FragmentBarcodeScanBinding
 import com.ebifry.barcode.ui.adapter.JANAdapter
 import com.ebifry.barcode.ui.viewmodel.MainViewModel
 import uk.co.brightec.kbarcode.Barcode
@@ -18,14 +18,14 @@ import uk.co.brightec.kbarcode.BarcodeView
 import uk.co.brightec.kbarcode.Options
 
 
-class FirstFragment : Fragment() {
+class BarcodeScanFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
-    private lateinit var binding: FragmentFirstBinding
+    private lateinit var binding: FragmentBarcodeScanBinding
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        binding=FragmentFirstBinding.inflate(inflater, container, false)
+        binding=FragmentBarcodeScanBinding.inflate(inflater, container, false)
         binding.lifecycleOwner=this
         return  binding.root
     }
@@ -46,7 +46,7 @@ class FirstFragment : Fragment() {
             recycler.layoutManager=LinearLayoutManager(context)
             sendIds.setOnClickListener {
                 viewModel.clickSendButton()
-                findNavController().navigate(R.id.codeLookUpFragment)
+                findNavController().navigate(R.id.searchHistoryFragment)
             }
         }
 
@@ -60,7 +60,7 @@ class FirstFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             })
             goToLookUp.observe(viewLifecycleOwner, Observer {
-                findNavController().navigate(R.id.codeLookUpFragment)
+                findNavController().navigate(R.id.searchHistoryFragment)
             })
         }
 

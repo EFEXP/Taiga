@@ -30,10 +30,10 @@ class FeeAdapter(val list: MutableList<DBFeeDetail>, lifecycleOwner: LifecycleOw
         holder.view.apply {
             fee=item
             when (item.feeType) {
-                "カート価格" -> {
+                holder.view.root.context.getString(R.string.cart_price)  -> {
                     feeIcon.setImageResource(R.drawable.ic_shopping_cart_black_24dp)
                 }
-                "損益分岐価格" -> {
+                holder.view.root.context.getString(R.string.breakeven_point) -> {
                     feeIcon.setImageResource(R.drawable.ic_attach_money_black_24dp)
                 }
                 else -> {
@@ -41,10 +41,10 @@ class FeeAdapter(val list: MutableList<DBFeeDetail>, lifecycleOwner: LifecycleOw
                 }
             }
             feeTitle.text=when(item.feeType){
-                "FBAFees"->"FBA手数料"
-                "PerItemFee"->"基本成約料"
-                "VariableClosingFee"->"カテゴリー成約料"
-                "ReferralFee"->"販売手数料"
+                "FBAFees"->root.context.getString(R.string.fba_fees)
+                "PerItemFee"->root.context.getString(R.string.per_item_fee)
+                "VariableClosingFee"->root.context.getString(R.string.variable_closing_fee)
+                "ReferralFee"->root.context.getString(R.string.referral_fee)
                 else ->item.feeType
             }
             executePendingBindings()

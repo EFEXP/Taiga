@@ -11,23 +11,24 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ebifry.barcode.databinding.FragmentCodeLookupBinding
 import com.ebifry.appbase.dao.ScannedItemDAO
+import com.ebifry.barcode.R
+import com.ebifry.barcode.databinding.FragmentSearchHistoryBinding
 import com.ebifry.barcode.ui.adapter.ScanHistoryAdapter
 import com.ebifry.barcode.ui.adapter.OnItemClickListener
 import com.ebifry.barcode.ui.viewmodel.MainViewModel
-import kotlinx.android.synthetic.main.fragment_code_lookup.*
-import kotlinx.android.synthetic.main.fragment_code_lookup.view.*
-import kotlinx.android.synthetic.main.fragment_code_lookup.view.progressBar
+import kotlinx.android.synthetic.main.fragment_search_history.*
+import kotlinx.android.synthetic.main.fragment_search_history.view.*
+import kotlinx.android.synthetic.main.fragment_search_history.view.progressBar
 
 
-class CodeLookUpFragment : Fragment() {
+class SearchHistoryFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return FragmentCodeLookupBinding.inflate(inflater, container, false).root
+        return FragmentSearchHistoryBinding.inflate(inflater, container, false).root
     }
 
 
@@ -35,6 +36,7 @@ class CodeLookUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.startedLookUpFragment()
         val adapter = ScanHistoryAdapter(arrayListOf(), this.viewLifecycleOwner)
+
         view.recycler.adapter = adapter
         view.recycler.layoutManager = LinearLayoutManager(activity)
 
@@ -51,9 +53,9 @@ class CodeLookUpFragment : Fragment() {
                     .setTitle("Selector")
                     .setItems(arrayOf("Amazon", "モノレート", "最安値.com")) { _, which ->
                         val items = arrayOf(
-                            "https://www.amazon.co.jp/o/ASIN/${item.scannedItem.asin}",
-                            "http://mnrate.com/s/past.php?kwd=${item.scannedItem.asin}",
-                            "https://www.saiyasune.com/I1W${item.scannedItem.name}.html"
+                            String.format(view.context.getString(R.string.amazon_product_url),item.scannedItem.asin),
+                            String.format(view.context.getString(R.string.monorate_url),item.scannedItem.asin),
+                            String.format(view.context.getString(R.string.saiyasune_url),item.scannedItem.name)
                         )
                         CustomTabsIntent.Builder().build()
                             .launchUrl(context!!, Uri.parse(items[which]))

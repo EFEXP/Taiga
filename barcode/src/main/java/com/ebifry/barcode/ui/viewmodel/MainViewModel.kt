@@ -3,7 +3,6 @@ package com.ebifry.barcode.ui.viewmodel
 
 import android.app.Application
 import android.content.SharedPreferences
-import android.preference.PreferenceManager
 import android.util.Log
 import androidx.lifecycle.*
 import com.ebifry.appbase.Taiga

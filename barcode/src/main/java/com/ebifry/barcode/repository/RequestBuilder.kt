@@ -105,10 +105,9 @@ open class RequestBuilder (amazonAuthModule: AmazonAuthModule){
     }
     private fun urlEncode(rawValue: String): String {
         val value: String = rawValue.replace("\n","")
-        val u=URLEncoder.encode(value, "UTF-8").replace("%7E", "~").replace(" ", "%20")
+        return URLEncoder.encode(value, "UTF-8").replace("%7E", "~").replace(" ", "%20")
             .replace("+", "%20")
             .replace("*", "%2A")
-        return u
     }
 
     private fun base64Encode(text: String): String {

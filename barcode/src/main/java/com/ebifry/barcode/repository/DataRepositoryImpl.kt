@@ -16,7 +16,7 @@ import kotlin.math.roundToInt
 
 class DataRepositoryImpl @Inject constructor(private val db: AppDatabase):DataRepository {
     override suspend fun dispatchProduct(products: List<Product>,jan:Long) {
-        val scannedItems= products.mapIndexed {i,it->
+        val scannedItems= products.map {
             val today=Date()
             ScannedItem(
                 today,
@@ -29,7 +29,6 @@ class DataRepositoryImpl @Inject constructor(private val db: AppDatabase):DataRe
                 categoryConst[it.category] ?: "UNKNOWN"
             )
         }.toTypedArray()
-
         db.scannedItemDao().insertAll(*scannedItems)
 
         val a=arrayListOf<Ranking>()

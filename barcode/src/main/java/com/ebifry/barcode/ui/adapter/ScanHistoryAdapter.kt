@@ -39,7 +39,7 @@ class ScanHistoryAdapter(
                 DBFeeDetail(
                     i.scannedItem.date,
                     i.comp[0].listing.toInt(),
-                    "カート価格",
+                    holder.view.root.context.getString(R.string.cart_price),
                     i.scannedItem.asin
                 )
             )
@@ -49,8 +49,8 @@ class ScanHistoryAdapter(
                     DBFeeDetail(
                         i.scannedItem.date,
                         i.comp[0].listing.toInt() - i.fees.map { it.totalAmount }
-                            .reduce { acc, i -> acc + i },
-                        "損益分岐価格",
+                            .reduce { acc, fee -> acc + fee },
+                        holder.view.root.context.getString(R.string.breakeven_point),
                         i.scannedItem.asin
                     )
                 )

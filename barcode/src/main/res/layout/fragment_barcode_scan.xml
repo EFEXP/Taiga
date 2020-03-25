@@ -5,7 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.FirstFragment">
+        tools:context=".ui.BarcodeScanFragment">
 
         <uk.co.brightec.kbarcode.BarcodeView
             android:id="@+id/view_barcode"

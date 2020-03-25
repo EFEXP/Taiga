@@ -6,26 +6,26 @@
     app:startDestination="@id/mainFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.ebifry.barcode.ui.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        android:id="@+id/barcodeScanFragment"
+        android:name="com.ebifry.barcode.ui.BarcodeScanFragment"
+        android:label="@string/barcode_scan_fragment_label"
+        tools:layout="@layout/fragment_barcode_scan">
         <action
             android:id="@+id/action_FirstFragment_to_codeLookUpFragment"
-            app:destination="@id/codeLookUpFragment" />
+            app:destination="@id/searchHistoryFragment" />
         <action
             android:id="@+id/action_FirstFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
     <fragment
-        android:id="@+id/codeLookUpFragment"
-        android:name="com.ebifry.barcode.ui.CodeLookUpFragment"
+        android:id="@+id/searchHistoryFragment"
+        android:name="com.ebifry.barcode.ui.SearchHistoryFragment"
         android:label="CodeLookUpFragment"
-        tools:layout="@layout/fragment_code_lookup"
+        tools:layout="@layout/fragment_search_history"
         >
         <action
             android:id="@+id/action_codeLookUpFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" >
+            app:destination="@id/barcodeScanFragment" >
         </action>
     </fragment>
     <fragment
@@ -34,7 +34,7 @@
         android:label="MainFragment" >
         <action
             android:id="@+id/action_mainFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            app:destination="@id/barcodeScanFragment" />
         <action
             android:id="@+id/action_mainFragment_to_placeholder"
             app:destination="@id/settingsFragment" />

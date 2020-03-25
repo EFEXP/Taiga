@@ -43,12 +43,15 @@ class SearchHistoryFragment : Fragment() {
         view.recycler.itemAnimator=SlideInLeftAnimator()
         viewModel.historyData.observe(this.viewLifecycleOwner, Observer {
             if (!initialized) {
-                adapter.setItems(it.toMutableList())
+                adapter.addAll(it)
+                adapter.notifyItemRangeInserted(0,it.size)
                 progressBar.visibility = View.GONE
                 initialized=true
             }
             else{
-                adapter.addAllMayDuplicated(it)
+                val adapterListSize=adapter.itemCount
+                val r=adapter.addAllMayDuplicated(it)
+                adapter.notifyItemRangeInserted(adapterListSize,r.size)
             }
         })
         viewModel.startedLookUpFragment()
@@ -56,7 +59,6 @@ class SearchHistoryFragment : Fragment() {
             override fun onClick(list: List<ScannedItemDAO.RetrievedItem>, int: Int) {
                 val item = list[int]
                 AlertDialog.Builder(activity)
-                    .setTitle("Selector")
                     .setItems(arrayOf("Amazon", "モノレート", "最安値.com",view.context.getString(R.string.action_copy_asin),view.context.getString(R.string.action_copy_jan))) { _, which ->
                         if (which<2){
                             val items = arrayOf(

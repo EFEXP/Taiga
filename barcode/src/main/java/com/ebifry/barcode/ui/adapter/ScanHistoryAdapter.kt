@@ -1,6 +1,8 @@
 package com.ebifry.barcode.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -30,7 +32,6 @@ class ScanHistoryAdapter(
             )
         )
     }
-
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val i = list[position]
 
@@ -57,9 +58,7 @@ class ScanHistoryAdapter(
 
             )
             val adapter = FeeAdapter(feeList, lOwner)
-
             holder.view.apply {
-
                 feeRecycler.layoutManager = LinearLayoutManager(root.context)
                 feeRecycler.adapter = adapter
                 separateFeeFromSum.visibility=View.VISIBLE
@@ -78,6 +77,11 @@ class ScanHistoryAdapter(
             root.setOnClickListener {
                 clickListener?.onClick(list, position)
             }
+            feeRecyclerMask.setOnClickListener {
+                clickListener?.onClick(list, position)
+            }
+
+
             executePendingBindings()
         }
 

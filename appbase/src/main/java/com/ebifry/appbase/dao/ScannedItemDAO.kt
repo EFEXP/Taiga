@@ -24,7 +24,7 @@ abstract class ScannedItemDAO {
     protected abstract suspend fun insertAll(vararg fee: DBFeeDetail)
 
     @Transaction
-    @Query("SELECT * FROM scanneditem")
+    @Query("SELECT * FROM scanneditem ORDER BY scanneditem.date DESC")
     protected abstract fun load(): LiveData<List<RetrievedItem>>
 
     @WorkerThread
@@ -53,7 +53,7 @@ abstract class ScannedItemDAO {
 
     }
 
-    fun getScanHistory() = load().getDistinct()
+    fun getScanHistory() = load()
 
     data class RetrievedItem(
         @Embedded

@@ -25,6 +25,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     @Inject
     lateinit var sharedPreferences: SharedPreferences
 
+    val snackBar:MutableLiveData<String> =MutableLiveData()
+
     val errorOccurs = MutableLiveData<String>()
     val clearCurrentID = MutableLiveData<Unit>()
     var adapterList: ArrayList<Long> = arrayListOf()

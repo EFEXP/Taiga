@@ -11,13 +11,18 @@ abstract class BaseAdapter<T,VH:RecyclerView.ViewHolder>(private var list:Mutabl
     }
     fun addAll(l:List<T>):List<T>{
         list.addAll(l)
-        notifyDataSetChanged()
         return list
+    }
+    fun insert(item:T,position: Int){
+        list.add(position,item)
+    }
+
+    fun remove(position:Int){
+        list.removeAt(position)
     }
     fun addAllMayDuplicated(l:List<T>):List<T>{
         val diff=l.toSet()-list.toSet()
         list.addAll(diff)
-        notifyDataSetChanged()
         return list
     }
     fun add(l:T):List<T>{

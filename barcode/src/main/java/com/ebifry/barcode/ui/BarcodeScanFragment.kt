@@ -9,11 +9,15 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ebifry.appbase.MainActivity
 import com.ebifry.barcode.R
 import com.ebifry.barcode.databinding.FragmentBarcodeScanBinding
 import com.ebifry.barcode.ui.adapter.JANAdapter
+import com.ebifry.barcode.ui.adapter.OnItemClickListener
 import com.ebifry.barcode.ui.viewmodel.MainViewModel
+import com.google.android.material.snackbar.Snackbar
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
+import kotlinx.android.synthetic.main.fragment_barcode_scan.view.*
 import uk.co.brightec.kbarcode.Barcode
 import uk.co.brightec.kbarcode.BarcodeView
 import uk.co.brightec.kbarcode.Options
@@ -46,6 +50,19 @@ class BarcodeScanFragment : Fragment() {
             recycler.adapter=adapter
             recycler.layoutManager=LinearLayoutManager(context)
             recycler.itemAnimator=SlideInLeftAnimator()
+            adapter.setOnClickListener(object : OnItemClickListener<Long> {
+                override fun onClick(list: List<Long>, int: Int) {
+                    val item=list[int]
+                    adapter.remove(int)
+                    adapter.notifyItemRemoved(int)
+                    Snackbar.make((activity as MainActivity).findViewById(android.R.id.content),"削除しました。",Snackbar.LENGTH_LONG).setAction("取り消す") {
+                        adapter.insert(item,int)
+                        adapter.notifyItemInserted(int)
+                    }.show()
+                }
+            })
+
+
             sendIds.setOnClickListener {
                 viewModel.clickSendButton()
                 findNavController().navigate(R.id.searchHistoryFragment)

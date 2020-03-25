@@ -13,6 +13,7 @@ import com.ebifry.barcode.R
 import com.ebifry.barcode.databinding.FragmentBarcodeScanBinding
 import com.ebifry.barcode.ui.adapter.JANAdapter
 import com.ebifry.barcode.ui.viewmodel.MainViewModel
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
 import uk.co.brightec.kbarcode.Barcode
 import uk.co.brightec.kbarcode.BarcodeView
 import uk.co.brightec.kbarcode.Options
@@ -44,6 +45,7 @@ class BarcodeScanFragment : Fragment() {
             })
             recycler.adapter=adapter
             recycler.layoutManager=LinearLayoutManager(context)
+            recycler.itemAnimator=SlideInLeftAnimator()
             sendIds.setOnClickListener {
                 viewModel.clickSendButton()
                 findNavController().navigate(R.id.searchHistoryFragment)
@@ -57,7 +59,7 @@ class BarcodeScanFragment : Fragment() {
             })
 
             untilIdListChange.observe(viewLifecycleOwner, Observer {
-                adapter.notifyDataSetChanged()
+                adapter.notifyItemRangeInserted(it.second,it.first)
             })
             goToLookUp.observe(viewLifecycleOwner, Observer {
                 findNavController().navigate(R.id.searchHistoryFragment)

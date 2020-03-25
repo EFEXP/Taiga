@@ -14,6 +14,12 @@ abstract class BaseAdapter<T,VH:RecyclerView.ViewHolder>(private var list:Mutabl
         notifyDataSetChanged()
         return list
     }
+    fun addAllMayDuplicated(l:List<T>):List<T>{
+        val diff=l.toSet()-list.toSet()
+        list.addAll(diff)
+        notifyDataSetChanged()
+        return list
+    }
     fun add(l:T):List<T>{
         list.add(l)
         notifyItemInserted(list.size)

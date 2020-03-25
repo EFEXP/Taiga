@@ -1,5 +1,6 @@
 package com.ebifry.barcode.repository
 
+import androidx.lifecycle.LiveData
 import com.ebifry.appbase.AppDatabase
 import com.ebifry.appbase.dao.ScannedItemDAO
 import com.ebifry.appbase.db.CompPrice
@@ -15,68 +16,67 @@ import javax.inject.Inject
 import kotlin.math.roundToInt
 
 class DataRepositoryImpl @Inject constructor(private val db: AppDatabase):DataRepository {
-    override suspend fun dispatchProduct(products: List<Product>,jan:Long) {
+
+
+    override suspend fun dispatchProducts(
+        products: List<Pair<Product, Long>>,
+        compList: List<Pair<CompetitivePrice, String>>?,
+        feeDetailList: List<Pair<FeeDetail, String>>?
+    ) {
+        val dbCompList=compList?.map {
+            CompPrice(
+                it.first.id,
+                it.first.condition,
+                it.first.subcondition,
+                it.second,
+                it.first.price.listing,
+                it.first.price.landed,
+                it.first.price.shipping
+            )
+        }
+        val dbFeesList=feeDetailList?.map {
+            DBFeeDetail(
+                Date(),
+                it.first.totalAmount.roundToInt(),
+                it.first.feeType,
+                it.second
+            )
+        }
+
+
         val scannedItems= products.map {
             val today=Date()
             ScannedItem(
                 today,
-                it.asin,
-                jan,
-                it.name ?: "不明",
-                it.imageURL?.replace("._SL75_", "._SL350_") ?: "",
-                restricted.contains(it.manufacturer),
-                restrictedCategory.contains(it.category),
-                categoryConst[it.category] ?: "UNKNOWN"
+                it.first.asin,
+                it.second,
+                it.first.name ?: "不明",
+                it.first.imageURL?.replace("._SL75_", "._SL350_") ?: "",
+                restricted.contains(it.first.manufacturer),
+                restrictedCategory.contains(it.first.category),
+                categoryConst[it.first.category] ?: "UNKNOWN"
             )
-        }.toTypedArray()
-        db.scannedItemDao().insertAll(*scannedItems)
+        }
 
         val a=arrayListOf<Ranking>()
-        products.filter { it.salesRankings!=null }.forEach {
+        products.filter { it.first.salesRankings!=null }.forEach {
                 product->
-            a.addAll(product.salesRankings!!.map {
+            a.addAll(product.first.salesRankings!!.map {
                 Ranking(
                     id = null,
-                    asin = product.asin,
+                    asin = product.first.asin,
                     category = it.productCategory,
                     ranking = it.rank
                 )
             })
-
         }
-        db.rankingDao().insertAll(*a.toTypedArray())
-    }
-    override suspend fun dispatchCompetitive(list:List<CompetitivePrice>,asin:String){
-        val l=list.map {
-            CompPrice(
-                it.id,
-                it.condition,
-                it.subcondition,
-                asin,
-                it.price.listing,
-                it.price.landed,
-                it.price.shipping
-            )
-        }.toTypedArray()
-        db.competitiveDao().insertAll(*l)
-    }
+        db.scannedItemDao().insert(scannedItems,a,dbFeesList,dbCompList)
 
-    override suspend fun dispatchFees(list:List<FeeDetail>,asin:String){
-        if (list.isNotEmpty()){
-        val l=list.map {
-            DBFeeDetail(
-                Date(),
-                it.totalAmount.roundToInt(),
-                it.feeType,
-                asin
-            )
-        }.toTypedArray()
-        db.feeDao().insertAll(*l)}
     }
 
 
-    override suspend fun getScanHistory():List<ScannedItemDAO.RetrievedItem> {
-        return db.scannedItemDao().load()
+    override fun getScanHistory(): LiveData<List<ScannedItemDAO.RetrievedItem>> {
+        return db.scannedItemDao().getScanHistory()
     }
     
 

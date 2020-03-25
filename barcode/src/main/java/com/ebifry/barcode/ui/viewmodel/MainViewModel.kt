@@ -30,14 +30,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     var adapterList: ArrayList<Long> = arrayListOf()
     val goToLookUp=MutableLiveData<Unit>()
     private val idList = MutableLiveData<List<Long>>()
-    val untilIdListChange = Transformations.distinctUntilChanged(idList)
-    val historyData=MutableLiveData<List<ScannedItemDAO.RetrievedItem>>()
+    val untilIdListChange = Transformations.distinctUntilChanged(idList).map {Pair(it.size,adapterList.size) }
+    @Inject
+    lateinit var historyData:LiveData<List<ScannedItemDAO.RetrievedItem>>
+
 
     init {
         val c = getApplication<Taiga>().provideCoreComponent()
         val co =
             DaggerApplicationComponent.builder().coreComponent(c).appModule(AppModule()).build()
         co.plus(this)
+
     }
 
     fun barcodeRead(list: List<Barcode>) {
@@ -67,9 +70,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun startedLookUpFragment(){
-        CoroutineScope(viewModelScope.coroutineContext).launch {
-            historyData.postValue(scanApp.historyView())
-        }
+
     }
 
     fun startLookUpFragment() {

@@ -15,7 +15,10 @@
     <string name="per_item_fee">基本成約料</string>
     <string name="variable_closing_fee">カテゴリー成約料</string>
     <string name="referral_fee">販売手数料</string>
+    <string name="action_copy_asin">ASINをコピー</string>
+    <string name="action_copy_jan">JANをコピー</string>
     <string name="amazon_product_url">https://www.amazon.co.jp/o/ASIN/%s</string>
     <string name="saiyasune_url">https://www.saiyasune.com/I1W%s.html</string>
     <string name="monorate_url">http://mnrate.com/s/past.php?kwd=%s</string>
+
 </resources>

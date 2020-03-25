@@ -16,7 +16,6 @@
     android:layout_margin="8dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:descendantFocusability="blocksDescendants"
     android:foreground="?android:attr/selectableItemBackground"
     >
     <androidx.constraintlayout.widget.ConstraintLayout

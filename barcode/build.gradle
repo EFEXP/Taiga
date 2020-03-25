@@ -97,5 +97,6 @@ dependencies {
     implementation 'androidx.browser:browser:1.2.0'
     implementation project(path: ':appbase')
     implementation "androidx.preference:preference-ktx:$preference_version"
+    implementation 'jp.wasabeef:recyclerview-animators:3.0.0'
 
 }

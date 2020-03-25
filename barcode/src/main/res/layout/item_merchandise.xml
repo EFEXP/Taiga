@@ -35,7 +35,7 @@
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.507"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/image_preview"
             app:layout_constraintTop_toBottomOf="@id/separate_info_from_fee" />
 
         <TextView
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:text="@{@string/item_jan_code(item.scannedItem.origin)}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/image_preview"
             app:layout_constraintTop_toBottomOf="@+id/chipGroup"
             tools:text="JAN:54283527985274" />
 
@@ -56,7 +56,7 @@
             android:text="@{item.scannedItem.name}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/image_preview"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="OPPO" />
 
@@ -68,18 +68,17 @@
             android:layout_marginTop="8dp"
             android:text="@{@string/item_asin_code(item.scannedItem.asin)}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/image_preview"
             app:layout_constraintTop_toBottomOf="@+id/text_code"
             tools:text="ASIN649816249812" />
 
 
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/image_preview"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginEnd="8dp"
-            app:imageUrl="@{item.scannedItem.url}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/text_code"
             app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +93,7 @@
             android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="@+id/text_name"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/image_preview"
             app:layout_constraintTop_toBottomOf="@+id/text_name"
             app:singleSelection="true">
 
@@ -130,16 +129,17 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/image_preview"
             app:layout_constraintTop_toBottomOf="@+id/text_asin" />
 
         <TextView
             android:id="@+id/text_timestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/image_preview"
             tools:text="2019" />
 
         <View
@@ -150,7 +150,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/image_preview"
             app:layout_constraintTop_toBottomOf="@+id/fee_recycler" />
 
 

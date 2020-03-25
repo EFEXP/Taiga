@@ -23,6 +23,7 @@ interface CoreComponent {
         fun plus(coreModule: CoreModule): Builder
     }
     fun createAppDatabase(): AppDatabase
+    fun app():Application
 }
 
 @Scope
@@ -37,6 +38,11 @@ class CoreModule(
     @Singleton
     fun provideAppDatabase(): AppDatabase {
         return Room.databaseBuilder(application, AppDatabase::class.java, "empty").build()
+    }
+    @Provides
+    @Singleton
+    fun provideApplication(): Application {
+        return application
     }
 
 }

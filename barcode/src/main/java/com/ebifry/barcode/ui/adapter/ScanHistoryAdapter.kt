@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.ebifry.appbase.dao.ScannedItemDAO
 import com.ebifry.barcode.R
 import com.ebifry.barcode.databinding.ItemMerchandiseBinding
@@ -32,6 +33,7 @@ class ScanHistoryAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val i = list[position]
+
         if (!i.fees.isNullOrEmpty()) {
             val feeList = arrayListOf(
                 DBFeeDetail(
@@ -57,6 +59,7 @@ class ScanHistoryAdapter(
             val adapter = FeeAdapter(feeList, lOwner)
 
             holder.view.apply {
+
                 feeRecycler.layoutManager = LinearLayoutManager(root.context)
                 feeRecycler.adapter = adapter
                 separateFeeFromSum.visibility=View.VISIBLE
@@ -71,6 +74,7 @@ class ScanHistoryAdapter(
         }
         holder.view.apply {
             item = i
+            Glide.with(root.context).load(i.scannedItem.url).into(imagePreview)
             root.setOnClickListener {
                 clickListener?.onClick(list, position)
             }

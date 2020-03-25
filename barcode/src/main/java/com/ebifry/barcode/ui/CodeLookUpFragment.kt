@@ -16,7 +16,9 @@ import com.ebifry.appbase.dao.ScannedItemDAO
 import com.ebifry.barcode.ui.adapter.ScanHistoryAdapter
 import com.ebifry.barcode.ui.adapter.OnItemClickListener
 import com.ebifry.barcode.ui.viewmodel.MainViewModel
+import kotlinx.android.synthetic.main.fragment_code_lookup.*
 import kotlinx.android.synthetic.main.fragment_code_lookup.view.*
+import kotlinx.android.synthetic.main.fragment_code_lookup.view.progressBar
 
 
 class CodeLookUpFragment : Fragment() {
@@ -31,12 +33,17 @@ class CodeLookUpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.startedLookUpFragment()
         val adapter = ScanHistoryAdapter(arrayListOf(), this.viewLifecycleOwner)
         view.recycler.adapter = adapter
         view.recycler.layoutManager = LinearLayoutManager(activity)
-        viewModel.loaded.observe(this.viewLifecycleOwner, Observer {
+
+        viewModel.historyData.observe(this.viewLifecycleOwner, Observer {
             adapter.setItems(it.toMutableList())
+            progressBar.visibility=View.GONE
         })
+
+
         adapter.setOnClickListener(object : OnItemClickListener<ScannedItemDAO.RetrievedItem> {
             override fun onClick(list: List<ScannedItemDAO.RetrievedItem>, int: Int) {
                 val item = list[int]

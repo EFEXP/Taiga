@@ -12,9 +12,6 @@ class Taiga: Application() , CoreComponentProvider {
     private val coreComponent by lazy {
         DaggerCoreComponent.builder().plus(CoreModule(this)).build()
     }
-   //var applicationComponent: ApplicationComponent = DaggerApplicationComponent.builder().databaseModule(
-     //  DatabaseModule(this)
- //  ).appModule(AppModule()).build()
 
     override fun onCreate() {
         FirebaseAnalytics.getInstance(this)

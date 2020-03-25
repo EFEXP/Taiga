@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <SwitchPreferenceCompat
+        app:key="is_minor_seller"
+        android:defaultValue="false"
+        app:title="小口出品者"/>
+    <SwitchPreferenceCompat
+        app:key="is_fba"
+        android:defaultValue="true"
+        app:title="FBAを使用"/>
+</PreferenceScreen>

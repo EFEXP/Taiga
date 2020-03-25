@@ -21,6 +21,9 @@ class MainFragment : Fragment() {
         binding.buttonGo.setOnClickListener {
             findNavController().navigate(R.id.FirstFragment)
         }
+        binding.buttonBarcode.setOnClickListener {
+            findNavController().navigate(R.id.settingsFragment)
+        }
         return  binding.root
     }
 

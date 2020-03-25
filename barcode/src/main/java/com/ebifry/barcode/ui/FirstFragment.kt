@@ -33,28 +33,39 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycle.addObserver(binding.viewBarcode)
-        binding.viewBarcode.setOptions(Options.Builder()
-            .barcodeFormats(intArrayOf(Barcode.FORMAT_EAN_13))
-            .minBarcodeWidth(200)
-            .scaleType(BarcodeView.CENTER_CROP).build())
-        binding.viewBarcode.barcodes.observe(viewLifecycleOwner, Observer { l ->
-            viewModel.barcodeRead(l.mapNotNull { it.displayValue?.toLong() })
-        })
         val adapter=JANAdapter(viewModel.adapterList,this.viewLifecycleOwner)
-        viewModel.clearCurrentID.observe(viewLifecycleOwner, Observer {
-            adapter.clear()
-            viewModel.adapterList.clear()
-        })
-        binding.recycler.adapter=adapter
-        binding.recycler.layoutManager=LinearLayoutManager(context)
-        binding.sendIds.setOnClickListener {
-            viewModel.startLookUpFragment()
-            findNavController().navigate(R.id.codeLookUpFragment)
+        binding.apply {
+            viewBarcode.setOptions(Options.Builder()
+                .barcodeFormats(intArrayOf(Barcode.FORMAT_EAN_13))
+                .minBarcodeWidth(200)
+                .scaleType(BarcodeView.CENTER_CROP).build())
+            viewBarcode.barcodes.observe(viewLifecycleOwner, Observer { l ->
+                viewModel.barcodeRead(l)
+            })
+            recycler.adapter=adapter
+            recycler.layoutManager=LinearLayoutManager(context)
+            sendIds.setOnClickListener {
+                viewModel.clickSendButton()
+                findNavController().navigate(R.id.codeLookUpFragment)
+            }
         }
-        viewModel.untilIdListChange.observe(this.viewLifecycleOwner, Observer {
-            adapter.notifyDataSetChanged()
 
-        })
+        viewModel.apply {
+            clearCurrentID.observe(viewLifecycleOwner, Observer {
+                adapter.clear()
+                viewModel.adapterList.clear()
+            })
+
+            untilIdListChange.observe(viewLifecycleOwner, Observer {
+                adapter.notifyDataSetChanged()
+            })
+            goToLookUp.observe(viewLifecycleOwner, Observer {
+                findNavController().navigate(R.id.codeLookUpFragment)
+            })
+        }
+
+
+
         if (savedInstanceState!=null)
             adapter.notifyDataSetChanged()
     }

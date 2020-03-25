@@ -1,6 +1,9 @@
 package com.ebifry.barcode.di
 
 
+import android.app.Application
+import android.content.SharedPreferences
+import androidx.preference.PreferenceManager
 import com.ebifry.appbase.di.ModuleScope
 import com.ebifry.barcode.domain.repository.AmazonRepository
 import com.ebifry.barcode.repository.AmazonRepositoryImpl

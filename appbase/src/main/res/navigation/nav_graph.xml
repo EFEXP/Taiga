@@ -35,5 +35,16 @@
         <action
             android:id="@+id/action_mainFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_placeholder"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment android:id="@+id/settingsFragment"
+        android:name="com.ebifry.preference.SettingsFragment"
+        android:label="SettingsFragment"
+        >
+        <action
+            android:id="@+id/action_placeholder_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
 </navigation>

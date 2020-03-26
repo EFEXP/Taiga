@@ -2,6 +2,7 @@ package com.ebifry.barcode.ui.adapter
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
+import java.util.*
 
 abstract class BaseAdapter<T,VH:RecyclerView.ViewHolder>(private var list:MutableList<T>, private val parentLifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<VH>() {
 
@@ -22,8 +23,8 @@ abstract class BaseAdapter<T,VH:RecyclerView.ViewHolder>(private var list:Mutabl
     }
     fun addAllMayDuplicated(l:List<T>):List<T>{
         val diff=l.toSet()-list.toSet()
-        list.addAll(diff)
-        return list
+        list.addAll(0,diff)
+        return diff.toList()
     }
     fun add(l:T):List<T>{
         list.add(l)

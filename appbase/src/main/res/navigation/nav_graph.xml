@@ -11,16 +11,21 @@
         android:label="@string/barcode_scan_fragment_label"
         tools:layout="@layout/fragment_barcode_scan">
         <action
-            android:id="@+id/action_FirstFragment_to_codeLookUpFragment"
+            android:id="@+id/action_BarcodeScanFragment_to_ScanHistoryFragment"
             app:destination="@id/searchHistoryFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
             />
         <action
-            android:id="@+id/action_FirstFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            android:id="@+id/action_BarcodeScanFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            />
     </fragment>
     <fragment
         android:id="@+id/searchHistoryFragment"
@@ -29,8 +34,13 @@
         tools:layout="@layout/fragment_search_history"
         >
         <action
-            android:id="@+id/action_codeLookUpFragment_to_FirstFragment"
-            app:destination="@id/barcodeScanFragment" >
+            android:id="@+id/action_ScanHistoryFragment_to_BarcodeScanFragment"
+            app:destination="@id/barcodeScanFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            >
         </action>
     </fragment>
     <fragment
@@ -38,18 +48,33 @@
         android:name="com.ebifry.appbase.MainFragment"
         android:label="MainFragment" >
         <action
-            android:id="@+id/action_mainFragment_to_FirstFragment"
-            app:destination="@id/barcodeScanFragment" />
+            android:id="@+id/action_mainFragment_to_BarcodeScanFragment"
+            app:destination="@id/barcodeScanFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            />
         <action
-            android:id="@+id/action_mainFragment_to_placeholder"
-            app:destination="@id/settingsFragment" />
+            android:id="@+id/action_mainFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            />
     </fragment>
     <fragment android:id="@+id/settingsFragment"
         android:name="com.ebifry.preference.SettingsFragment"
         android:label="SettingsFragment"
         >
         <action
-            android:id="@+id/action_placeholder_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            android:id="@+id/action_settingsFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            />
     </fragment>
 </navigation>

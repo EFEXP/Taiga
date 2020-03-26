@@ -2,6 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.ebifry.appbase.MainActivity">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/barcode_scan_constraint"
         android:layout_width="match_parent"
@@ -26,7 +31,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_barcode" />
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/send_ids"
             android:layout_width="wrap_content"
@@ -34,8 +39,9 @@
             android:layout_margin="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:src="@drawable/ic_send_black_24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_anchor="@id/barcode_scan_constraint"
+            app:layout_anchorGravity="right|bottom"
+            android:src="@drawable/ic_send_black_24dp" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>

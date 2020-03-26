@@ -37,21 +37,28 @@ class SearchHistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var initialized=false
-        val adapter = ScanHistoryAdapter(arrayListOf(), this.viewLifecycleOwner)
-        view.recycler.adapter = adapter
-        view.recycler.layoutManager = LinearLayoutManager(activity)
-        view.recycler.itemAnimator=SlideInLeftAnimator()
+        val adapter = ScanHistoryAdapter(arrayListOf(), this.viewLifecycleOwner).apply {
+            setHasStableIds(true)
+        }
+        view.recycler.apply {
+            this.adapter = adapter
+            layoutManager = LinearLayoutManager(activity)
+            itemAnimator=SlideInLeftAnimator()
+        }
+
         viewModel.historyData.observe(this.viewLifecycleOwner, Observer {
             if (!initialized) {
                 adapter.addAll(it)
                 adapter.notifyItemRangeInserted(0,it.size)
-                progressBar.visibility = View.GONE
                 initialized=true
             }
             else{
-                val adapterListSize=adapter.itemCount
+                progressBar.visibility = View.GONE
                 val r=adapter.addAllMayDuplicated(it)
-                adapter.notifyItemRangeInserted(adapterListSize,r.size)
+                view.recycler.smoothScrollToPosition(0)
+                adapter.notifyItemRangeInserted(0,r.size)
+
+
             }
         })
         viewModel.startedLookUpFragment()

@@ -14,6 +14,9 @@ import com.ebifry.appbase.dao.ScannedItemDAO
 import com.ebifry.barcode.R
 import com.ebifry.barcode.databinding.ItemMerchandiseBinding
 import com.ebifry.appbase.db.DBFeeDetail
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 class ScanHistoryAdapter(
@@ -80,12 +83,26 @@ class ScanHistoryAdapter(
             feeRecyclerMask.setOnClickListener {
                 clickListener?.onClick(list, position)
             }
+            textTimestamp.text= getRelativeTime(i.scannedItem.date)
+
 
 
             executePendingBindings()
         }
 
 
+    }
+    private fun getRelativeTime(create: Date): String {
+        val datetime1 = System.currentTimeMillis()
+        val datetime2 = create.time
+        val difference = datetime1 - datetime2
+        return when {
+            difference < 10000L -> "いま".format(TimeUnit.MILLISECONDS.toSeconds(difference))
+            difference < 60000L -> "%d秒前".format(TimeUnit.MILLISECONDS.toSeconds(difference))
+            difference < 3600000L -> "%d分前".format(TimeUnit.MILLISECONDS.toMinutes(difference))
+            difference < 86400000L -> "%d時間前".format(TimeUnit.MILLISECONDS.toHours(difference))
+            else -> "%d日前".format(TimeUnit.MILLISECONDS.toDays(difference))
+        }
     }
 
 }

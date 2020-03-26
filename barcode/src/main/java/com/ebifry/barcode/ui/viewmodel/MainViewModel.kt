@@ -25,7 +25,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     @Inject
     lateinit var sharedPreferences: SharedPreferences
 
-    val snackBar:MutableLiveData<String> =MutableLiveData()
 
     val errorOccurs = MutableLiveData<String>()
     val clearCurrentID = MutableLiveData<Unit>()
@@ -75,12 +74,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
-    fun startLookUpFragment() {
-        goToLookUp.postValue(Unit)
-    }
     private fun isJANCode(targetCode: String) =
         !(targetCode.length != 13 || !targetCode.startsWith("45") && !targetCode.startsWith("49"))
-
     private fun isISBNCode(targetCode: String) =
         (targetCode.length == 10 || targetCode.length == 13) && (targetCode.startsWith("978") || targetCode.startsWith(
             "979"

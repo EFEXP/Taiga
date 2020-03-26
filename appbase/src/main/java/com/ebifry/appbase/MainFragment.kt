@@ -19,10 +19,10 @@ class MainFragment : Fragment() {
         val binding=FragmentMainBinding.inflate(inflater, container, false)
         binding.lifecycleOwner=this
         binding.buttonGo.setOnClickListener {
-            findNavController().navigate(R.id.barcodeScanFragment)
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToBarcodeScanFragment())
         }
         binding.buttonBarcode.setOnClickListener {
-            findNavController().navigate(R.id.settingsFragment)
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToSettingsFragment())
         }
         return  binding.root
     }

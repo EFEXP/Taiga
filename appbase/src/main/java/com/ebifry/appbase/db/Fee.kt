@@ -7,7 +7,7 @@ import java.util.*
 
 @Entity(
     tableName = "fee",
-    primaryKeys = arrayOf("asin","feeType","date"),
+    primaryKeys = ["asin", "feeType", "date"],
     foreignKeys = [ForeignKey(entity = ScannedItem::class,parentColumns = arrayOf("asin"),childColumns = arrayOf("asin"), onDelete = ForeignKey.CASCADE)],
     indices = [Index(value = ["asin"], unique = false)]
 )

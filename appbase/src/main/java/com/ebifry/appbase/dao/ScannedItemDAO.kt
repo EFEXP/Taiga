@@ -2,8 +2,6 @@ package com.ebifry.appbase.dao
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.Observer
 import androidx.room.*
 import  com.ebifry.appbase.db.CompPrice
 import  com.ebifry.appbase.db.DBFeeDetail
@@ -24,7 +22,7 @@ abstract class ScannedItemDAO {
     protected abstract suspend fun insertAll(vararg fee: DBFeeDetail)
 
     @Transaction
-    @Query("SELECT * FROM scanneditem ORDER BY scanneditem.date DESC")
+    @Query("SELECT * FROM scanned_items ORDER BY scanned_items.date DESC")
     protected abstract fun load(): LiveData<List<RetrievedItem>>
 
     @WorkerThread
@@ -77,29 +75,12 @@ abstract class ScannedItemDAO {
             }
 
         }
+
+        override fun hashCode(): Int {
+            return scannedItem.asin.hashCode()
+        }
     }
 
-
-    private fun <T> LiveData<T>.getDistinct(): LiveData<T> {
-        val distinctLiveData = MediatorLiveData<T>()
-        distinctLiveData.addSource(this, object : Observer<T> {
-            private var initialized = false
-            private var lastObj: T? = null
-            override fun onChanged(obj: T?) {
-                if (!initialized) {
-                    initialized = true
-                    lastObj = obj
-                    distinctLiveData.postValue(lastObj)
-                } else if ((obj == null && lastObj != null)
-                    || obj != lastObj
-                ) {
-                    lastObj = obj
-                    distinctLiveData.postValue(lastObj)
-                }
-            }
-        })
-        return distinctLiveData
-    }
 
 
 }

@@ -22,23 +22,24 @@ abstract class BaseAdapter<T,VH:RecyclerView.ViewHolder>(private var list:Mutabl
         list.removeAt(position)
     }
     fun addAllMayDuplicated(l:List<T>):List<T>{
-        val diff=l.toSet()-list.toSet()
+        val diff=l.toSet().minus(list.toSet())
         list.addAll(0,diff)
         return diff.toList()
     }
+    fun insertAll(l:List<T>,position: Int){
+        list.addAll(position,l)
+    }
+
     fun add(l:T):List<T>{
         list.add(l)
-        notifyItemInserted(list.size)
         return list
     }
     fun clear(){
         list.clear()
-        notifyDataSetChanged()
     }
     fun setItems(l: MutableList<T>){
         list.clear()
         list.addAll(l)
-        notifyDataSetChanged()
     }
     override fun getItemCount(): Int {
         return list.size
@@ -48,5 +49,5 @@ abstract class BaseAdapter<T,VH:RecyclerView.ViewHolder>(private var list:Mutabl
 
 }
 interface OnItemClickListener<T>{
-    fun onClick(list:List<T>,int:Int)
+    fun onClick(list:List<T>,position:Int)
 }

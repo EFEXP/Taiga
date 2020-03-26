@@ -70,9 +70,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun startedLookUpFragment(){
 
-    }
 
     private fun isJANCode(targetCode: String) =
         !(targetCode.length != 13 || !targetCode.startsWith("45") && !targetCode.startsWith("49"))

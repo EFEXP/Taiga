@@ -1,9 +1,14 @@
 package com.ebifry.barcode.ui
 
+import android.content.Context
+import android.graphics.*
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.SurfaceHolder
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -14,6 +19,7 @@ import com.ebifry.barcode.databinding.FragmentBarcodeScanBinding
 import com.ebifry.barcode.ui.adapter.JANAdapter
 import com.ebifry.barcode.ui.adapter.OnItemClickListener
 import com.ebifry.barcode.ui.viewmodel.MainViewModel
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
 import uk.co.brightec.kbarcode.Barcode
@@ -44,32 +50,57 @@ class BarcodeScanFragment : Fragment() {
                     .minBarcodeWidth(500)
                     .scaleType(BarcodeView.CENTER_CROP).build()
             )
+            val holder=onDrawSurface.holder
+            holder.setFormat(PixelFormat.TRANSPARENT)
+
+
+
+
             viewBarcode.barcodes.observe(viewLifecycleOwner, Observer { l ->
+                l.forEach {it.boundingBox?.let {rect->
+                    val canvas=holder.lockCanvas().apply {
+                        drawColor(0, PorterDuff.Mode.CLEAR)
+                        val paint=Paint().apply {
+                            style=Paint.Style.STROKE
+                            color=ContextCompat.getColor(context!!,R.color.colorAccent)
+                            strokeWidth=5F
+                        }
+                        drawRect(rect.left.toFloat(),rect.top.toFloat(),rect.right.toFloat(),rect.bottom.toFloat(),paint)
+                    }
+                    holder.unlockCanvasAndPost(canvas)
+                }
+
+                }
                 viewModel.barcodeRead(l)
             })
-            viewBarcode.setOnClickListener {
+
+            onDrawSurface.setOnClickListener {
                 val previewEnabled = it.tag as? Boolean ?: true
                 if (previewEnabled) {
                     viewBarcode.release()
-                }
-                else{
+                    onDrawSurface.foreground=ContextCompat.getDrawable(context!!,R.color.stop_black)
+                } else {
                     viewBarcode.start()
+                    onDrawSurface.foreground=null
                 }
                 it.tag = previewEnabled.not()
-
             }
+
             recycler.adapter = adapter
             recycler.layoutManager = LinearLayoutManager(context)
             recycler.itemAnimator = SlideInLeftAnimator()
             adapter.setOnClickListener(object : OnItemClickListener<Long> {
-                override fun onClick(list: List<Long>, int: Int) {
-                    val item = list[int]
-                    adapter.remove(int)
-                    adapter.notifyItemRemoved(int)
-                    Snackbar.make(coordinator, "削除しました。", Snackbar.LENGTH_LONG).setAction("取り消す") {
-                        adapter.insert(item, int)
-                        adapter.notifyItemInserted(int)
-                    }.show()
+
+                override fun onClick(list: List<Long>, position: Int) {
+                    val item = list[position]
+                    adapter.remove(position)
+                    adapter.notifyItemRemoved(position)
+                    adapter.notifyItemRangeChanged(position, 1)
+                    Snackbar.make(coordinator, "削除しました。", Snackbar.LENGTH_LONG)
+                        .setAction("取り消す") {
+                            adapter.insert(item, position)
+                            adapter.notifyItemInserted(position)
+                        }.show()
                 }
             })
 

@@ -13,7 +13,4 @@ import com.ebifry.appbase.db.ScannedItem
 @TypeConverters(RoomTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun scannedItemDao(): ScannedItemDAO
-    abstract fun rankingDao(): RankingDAO
-    abstract fun competitiveDao(): CompetitivePriceDAO
-    abstract fun feeDao(): FeeDAO
 }

@@ -16,13 +16,21 @@
         <uk.co.brightec.kbarcode.BarcodeView
             android:id="@+id/view_barcode"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="450dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
+        <SurfaceView
+            android:id="@+id/on_draw_surface"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/view_barcode"
+            app:layout_constraintEnd_toEndOf="@id/view_barcode"
+            app:layout_constraintStart_toStartOf="@id/view_barcode"
+            app:layout_constraintTop_toTopOf="@id/view_barcode" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"

@@ -92,6 +92,24 @@ class ScanHistoryAdapter(
 
 
     }
+
+    fun updateMayDuplicated(l:List<ScannedItemDAO.RetrievedItem>):List<Int>{
+        val A=list
+        val B=l
+        val diff=l.toSet().minus(list.toSet())
+        //アップデートsareruアイテム
+        val updated=(B-diff).find {bElement->A.map { it.scannedItem.date }.contains(bElement.scannedItem.date)}
+        val indices=(A-(B-updated)).map { list.indexOf(it) }
+        list.removeAll((A-(B-updated)))
+
+        updated?.let {
+            insertAll(arrayListOf(it),0)
+        }
+
+        //削除されたアイテムのポジション
+        return indices
+
+    }
     private fun getRelativeTime(create: Date): String {
         val datetime1 = System.currentTimeMillis()
         val datetime2 = create.time

@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
 
-@Entity
+@Entity(tableName = "scanned_items")
 data class ScannedItem(
     val date: Date,
     @PrimaryKey

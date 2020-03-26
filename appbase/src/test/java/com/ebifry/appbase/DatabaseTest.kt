@@ -4,9 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.ebifry.appbase.dao.RankingDAO
 import com.ebifry.appbase.dao.ScannedItemDAO
-import com.ebifry.appbase.db.Ranking
 import com.ebifry.appbase.db.ScannedItem
 import com.google.common.truth.Truth
 import kotlinx.coroutines.CoroutineScope

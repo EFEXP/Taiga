@@ -16,7 +16,10 @@ data class GetCompetitivePricingForASINResult(
     val asin:String,
     @Path("Product/CompetitivePricing/CompetitivePrices")
     @Element
-    val prices:List<CompetitivePrice>
+    val prices:List<CompetitivePrice>,
+    @Path("Product/CompetitivePricing/NumberOfOfferListings")
+    @Element
+    val numberOfOfferListings:List<OfferListingCount>
 )
 
 @Xml(name="CompetitivePrice")
@@ -30,6 +33,14 @@ data class CompetitivePrice(
     @Element
     val price:Price
 )
+
+
+@Xml(name="OfferListingCount")
+data class OfferListingCount(
+    @Attribute
+    val condition:String,
+    @TextContent
+    val amount:String)
 
 @Xml(name="Price")
 data class Price(

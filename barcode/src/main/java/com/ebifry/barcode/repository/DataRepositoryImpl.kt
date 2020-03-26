@@ -3,12 +3,10 @@ package com.ebifry.barcode.repository
 import androidx.lifecycle.LiveData
 import com.ebifry.appbase.AppDatabase
 import com.ebifry.appbase.dao.ScannedItemDAO
-import com.ebifry.appbase.db.CompPrice
-import com.ebifry.appbase.db.DBFeeDetail
-import com.ebifry.appbase.db.Ranking
-import com.ebifry.appbase.db.ScannedItem
+import com.ebifry.appbase.db.*
 import com.ebifry.barcode.domain.entity.CompetitivePrice
 import com.ebifry.barcode.domain.entity.FeeDetail
+import com.ebifry.barcode.domain.entity.OfferListingCount
 import com.ebifry.barcode.domain.entity.Product
 import com.ebifry.barcode.domain.repository.DataRepository
 import java.util.*
@@ -21,7 +19,8 @@ class DataRepositoryImpl @Inject constructor(private val db: AppDatabase):DataRe
     override suspend fun dispatchProducts(
         products: List<Pair<Product, Long>>,
         compList: List<Pair<CompetitivePrice, String>>?,
-        feeDetailList: List<Pair<FeeDetail, String>>?
+        feeDetailList: List<Pair<FeeDetail, String>>?,
+        offerListingCountList: List<Pair<List<OfferListingCount>,String>>?
     ) {
         val dbCompList=compList?.map {
             CompPrice(
@@ -34,6 +33,19 @@ class DataRepositoryImpl @Inject constructor(private val db: AppDatabase):DataRe
                 it.first.price.shipping
             )
         }
+
+
+
+
+        val offersList=offerListingCountList?.map{
+            val x= mutableMapOf<String,Int>()
+            it.first.forEach {olc->
+                x[olc.condition]=olc.amount.toInt()
+            }
+            Offers(it.second,x["New"]?:0,x["Used"]?:0,x["Any"]?:0)
+        }
+
+
         val dbFeesList=feeDetailList?.map {
             DBFeeDetail(
                 Date(),
@@ -70,7 +82,7 @@ class DataRepositoryImpl @Inject constructor(private val db: AppDatabase):DataRe
                 )
             })
         }
-        db.scannedItemDao().insert(scannedItems,a,dbFeesList,dbCompList)
+        db.scannedItemDao().insert(scannedItems,a,dbFeesList,dbCompList,offersList)
 
     }
 

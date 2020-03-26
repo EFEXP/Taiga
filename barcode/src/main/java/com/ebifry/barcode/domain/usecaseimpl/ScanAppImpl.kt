@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import com.ebifry.appbase.dao.ScannedItemDAO
 import com.ebifry.barcode.domain.entity.CompetitivePrice
 import com.ebifry.barcode.domain.entity.FeeDetail
+import com.ebifry.barcode.domain.entity.OfferListingCount
 import com.ebifry.barcode.domain.entity.Product
 import com.ebifry.barcode.domain.repository.AmazonRepository
 import com.ebifry.barcode.domain.repository.DataRepository
@@ -36,6 +37,8 @@ class ScanAppImpl @Inject constructor(
                 competitivePriceList.add(Pair(price,it.second))
             }
         }
+        val offerList:MutableList<Pair<List<OfferListingCount>,String>> = r.map { Pair(it.numberOfOfferListings,it.asin) }.toMutableList()
+
         val feesList:MutableList<Pair<FeeDetail,String>> = arrayListOf()
         r.forEach {
             try {
@@ -52,7 +55,7 @@ class ScanAppImpl @Inject constructor(
                 Log.e("Hello",ex.localizedMessage!!)
             }
         }
-        dataRepository.dispatchProducts(productList,competitivePriceList,feesList)
+        dataRepository.dispatchProducts(productList,competitivePriceList,feesList,offerList)
 
     }
 

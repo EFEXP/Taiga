@@ -145,78 +145,9 @@ class EntitiesTest{
 
     @Test
     fun newCompetitivePrice() {
-        val xml="""<?xml version="1.0"?>
-<GetMatchingProductForIdResponse xmlns="http://mws.amazonservices.com/schema/Products/2011-10-01">
-  <GetMatchingProductForIdResult Id="9784806141150" IdType="JAN" status="Success">
-    <Products xmlns:ns2="http://mws.amazonservices.com/schema/Products/2011-10-01/default.xsd">
-      <Product>
-        <Identifiers>
-          <MarketplaceASIN>
-            <MarketplaceId>A1VC38T7YXB528</MarketplaceId>
-            <ASIN>4806141151</ASIN>
-          </MarketplaceASIN>
-        </Identifiers>
-        <AttributeSets>
-          <ns2:ItemAttributes xml:lang="ja-JP">
-            <ns2:Binding>単行本（ソフトカバー）</ns2:Binding>
-            <ns2:Creator Role="著">中山 マコト</ns2:Creator>
-            <ns2:ItemDimensions>
-              <ns2:Weight Units="pounds">0.7054792384000</ns2:Weight>
-            </ns2:ItemDimensions>
-            <ns2:IsAdultProduct>false</ns2:IsAdultProduct>
-            <ns2:Label>中経出版</ns2:Label>
-            <ns2:Languages>
-              <ns2:Language>
-                <ns2:Name>japanese</ns2:Name>
-                <ns2:Type>発行済み</ns2:Type>
-              </ns2:Language>
-            </ns2:Languages>
-            <ns2:ListPrice>
-              <ns2:Amount>1650.00</ns2:Amount>
-              <ns2:CurrencyCode>JPY</ns2:CurrencyCode>
-            </ns2:ListPrice>
-            <ns2:Manufacturer>中経出版</ns2:Manufacturer>
-            <ns2:NumberOfPages>255</ns2:NumberOfPages>
-            <ns2:PackageDimensions>
-              <ns2:Height Units="inches">0.7086614166</ns2:Height>
-              <ns2:Length Units="inches">7.4803149530</ns2:Length>
-              <ns2:Width Units="inches">5.0393700736</ns2:Width>
-              <ns2:Weight Units="pounds">0.705472037362793485962466</ns2:Weight>
-            </ns2:PackageDimensions>
-            <ns2:PackageQuantity>1</ns2:PackageQuantity>
-            <ns2:ProductGroup>Book</ns2:ProductGroup>
-            <ns2:ProductTypeName>ABIS_BOOK</ns2:ProductTypeName>
-            <ns2:PublicationDate>2011-07-16</ns2:PublicationDate>
-            <ns2:Publisher>中経出版</ns2:Publisher>
-            <ns2:SmallImage>
-              <ns2:URL>http://ecx.images-amazon.com/images/I/51S3b6MecLL._SL75_.jpg</ns2:URL>
-              <ns2:Height Units="pixels">75</ns2:Height>
-              <ns2:Width Units="pixels">50</ns2:Width>
-            </ns2:SmallImage>
-            <ns2:Studio>中経出版</ns2:Studio>
-            <ns2:Title>「バカ売れ」タイトルが面白いほど書ける本</ns2:Title>
-          </ns2:ItemAttributes>
-        </AttributeSets>
-        <Relationships/>
-        <SalesRankings>
-          <SalesRank>
-            <ProductCategoryId>book_display_on_website</ProductCategoryId>
-            <Rank>377851</Rank>
-          </SalesRank>
-          <SalesRank>
-            <ProductCategoryId>505418</ProductCategoryId>
-            <Rank>560</Rank>
-          </SalesRank>
-        </SalesRankings>
-      </Product>
-    </Products>
-  </GetMatchingProductForIdResult>
-  <ResponseMetadata>
-    <RequestId>a7018950-c57e-48ec-80e0-de8f809bf2c1</RequestId>
-  </ResponseMetadata>
-</GetMatchingProductForIdResponse>"""
+        val xml="""<?xml version="1.0"?><GetCompetitivePricingForASINResponse xmlns="http://mws.amazonservices.com/schema/Products/2011-10-01"><GetCompetitivePricingForASINResult ASIN="4800720729" status="Success"><Product xmlns:ns2="http://mws.amazonservices.com/schema/Products/2011-10-01/default.xsd"><Identifiers><MarketplaceASIN><MarketplaceId>A1VC38T7YXB528</MarketplaceId><ASIN>4800720729</ASIN></MarketplaceASIN></Identifiers><CompetitivePricing><CompetitivePrices><CompetitivePrice belongsToRequester="false" condition="New" subcondition="New"><CompetitivePriceId>1</CompetitivePriceId><Price><LandedPrice><CurrencyCode>JPY</CurrencyCode><Amount>1708.00</Amount></LandedPrice><ListingPrice><CurrencyCode>JPY</CurrencyCode><Amount>1738.00</Amount></ListingPrice><Shipping><CurrencyCode>JPY</CurrencyCode><Amount>0.00</Amount></Shipping><Points><PointsNumber>30</PointsNumber><PointsMonetaryValue><CurrencyCode>JPY</CurrencyCode><Amount>30.00</Amount></PointsMonetaryValue></Points></Price></CompetitivePrice></CompetitivePrices><NumberOfOfferListings><OfferListingCount condition="New">11</OfferListingCount><OfferListingCount condition="Used">14</OfferListingCount><OfferListingCount condition="Any">25</OfferListingCount></NumberOfOfferListings></CompetitivePricing><SalesRankings><SalesRank><ProductCategoryId>book_display_on_website</ProductCategoryId><Rank>8171</Rank></SalesRank><SalesRank><ProductCategoryId>516238</ProductCategoryId><Rank>11</Rank></SalesRank></SalesRankings></Product></GetCompetitivePricingForASINResult><ResponseMetadata><RequestId>67dc0fff-d48a-49ac-b466-c35cdc8e360e</RequestId></ResponseMetadata></GetCompetitivePricingForASINResponse>"""
         try {
-            val r=tikXml.read(sourceFrom(xml),GetMatchingProductForIdResponse::class.java)
+            val r=tikXml.read(sourceFrom(xml),CompetitivePriceResponse::class.java)
             print(r.toString())
             Truth.assertThat(r).isNotNull()
         }

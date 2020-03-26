@@ -18,7 +18,9 @@
     <string name="action_copy_asin">ASINをコピー</string>
     <string name="action_copy_jan">JANをコピー</string>
     <string name="amazon_product_url">https://www.amazon.co.jp/o/ASIN/%s</string>
+    <string name="amazon_seller_url">https://sellercentral.amazon.co.jp/product-search/search?q=%s</string>
     <string name="saiyasune_url">https://www.saiyasune.com/I1W%s.html</string>
     <string name="monorate_url">http://mnrate.com/s/past.php?kwd=%s</string>
+    <string name="item_offers">新品:%1$d 中古:%2$d その他:%3$d</string>
 
 </resources>

@@ -3,10 +3,7 @@ package com.ebifry.appbase.dao
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import  com.ebifry.appbase.db.CompPrice
-import  com.ebifry.appbase.db.DBFeeDetail
-import  com.ebifry.appbase.db.Ranking
-import  com.ebifry.appbase.db.ScannedItem
+import com.ebifry.appbase.db.*
 
 @Dao
 abstract class ScannedItemDAO {
@@ -21,6 +18,11 @@ abstract class ScannedItemDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     protected abstract suspend fun insertAll(vararg fee: DBFeeDetail)
 
+    @WorkerThread
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    protected abstract suspend fun insertAll(vararg fee: Offers)
+
+
     @Transaction
     @Query("SELECT * FROM scanned_items ORDER BY scanned_items.date DESC")
     protected abstract fun load(): LiveData<List<RetrievedItem>>
@@ -34,7 +36,8 @@ abstract class ScannedItemDAO {
         scannedItems: List<ScannedItem>?,
         rankings: List<Ranking>?,
         fees: List<DBFeeDetail>?,
-        compPrices: List<CompPrice>?
+        compPrices: List<CompPrice>?,
+        offers: List<Offers>?
     ) {
         scannedItems?.let {
             insertAll(scannedItem = *scannedItems.toTypedArray())
@@ -47,6 +50,9 @@ abstract class ScannedItemDAO {
         }
         compPrices?.let {
             insertAll(*compPrices.toTypedArray())
+        }
+        offers?.let {
+            insertAll(*offers.toTypedArray())
         }
 
     }
@@ -61,7 +67,9 @@ abstract class ScannedItemDAO {
         @Relation(parentColumn = "asin", entityColumn = "asin")
         val comp: List<CompPrice>,
         @Relation(parentColumn = "asin", entityColumn = "asin")
-        val fees: List<DBFeeDetail>
+        val fees: List<DBFeeDetail>,
+        @Relation(parentColumn = "asin", entityColumn = "asin")
+        val offers: Offers
     ){
         override fun equals(other: Any?): Boolean {
             return when (other) {

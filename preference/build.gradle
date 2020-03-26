@@ -4,9 +4,9 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
-    buildFeatures{
-        dataBinding = true
+    buildToolsVersion "29.0.3"
+    dataBinding {
+        enabled = true
     }
     defaultConfig {
         minSdkVersion 23

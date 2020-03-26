@@ -20,6 +20,7 @@ import com.ebifry.barcode.databinding.FragmentSearchHistoryBinding
 import com.ebifry.barcode.ui.adapter.ScanHistoryAdapter
 import com.ebifry.barcode.ui.adapter.OnItemClickListener
 import com.ebifry.barcode.ui.viewmodel.MainViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
 import kotlinx.android.synthetic.main.fragment_search_history.*
@@ -84,11 +85,13 @@ class SearchHistoryFragment : Fragment() {
         adapter.setOnClickListener(object : OnItemClickListener<ScannedItemDAO.RetrievedItem> {
             override fun onClick(list: List<ScannedItemDAO.RetrievedItem>, position: Int) {
                 val item = list[position]
-                AlertDialog.Builder(activity)
-                    .setItems(arrayOf("Amazon", "モノレート", "最安値.com",view.context.getString(R.string.action_copy_asin),view.context.getString(R.string.action_copy_jan))) { _, which ->
-                        if (which<2){
+                MaterialAlertDialogBuilder(activity,R.style.ThemeOverlay_MaterialComponents)
+                    .setTitle("なにをしますか？")
+                    .setItems(arrayOf("Amazonで見る","出品制限を見る", "モノレートで見る", "最安値.comで見る",view.context.getString(R.string.action_copy_asin),view.context.getString(R.string.action_copy_jan))) { _, which ->
+                        if (which<3){
                             val items = arrayOf(
                                 String.format(view.context.getString(R.string.amazon_product_url),item.scannedItem.asin),
+                                String.format(view.context.getString(R.string.amazon_seller_url),item.scannedItem.asin),
                                 String.format(view.context.getString(R.string.monorate_url),item.scannedItem.asin),
                                 String.format(view.context.getString(R.string.saiyasune_url),item.scannedItem.name)
                             )
@@ -97,12 +100,12 @@ class SearchHistoryFragment : Fragment() {
                         }
                         else{
                             when(which){
-                                3->{
+                                4->{
                                    val service= view.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                                     service.setPrimaryClip(ClipData.newPlainText("",item.scannedItem.asin))
                                     Snackbar.make(view.coodinator_scanhistory, "コピーしました。", Snackbar.LENGTH_LONG).show()
                                 }
-                                4->{
+                                5->{
                                     val service= view.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                                     service.setPrimaryClip(ClipData.newPlainText("",item.scannedItem.origin.toString()))
                                     Snackbar.make(view.coodinator_scanhistory, "コピーしました。", Snackbar.LENGTH_LONG).show()

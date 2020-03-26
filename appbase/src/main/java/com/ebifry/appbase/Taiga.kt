@@ -1,6 +1,7 @@
 package com.ebifry.appbase
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
 import com.ebifry.appbase.di.CoreComponent
 import com.ebifry.appbase.di.CoreComponentProvider
 import com.ebifry.appbase.di.CoreModule
@@ -14,8 +15,9 @@ class Taiga: Application() , CoreComponentProvider {
     }
 
     override fun onCreate() {
-        FirebaseAnalytics.getInstance(this)
         super.onCreate()
+        FirebaseAnalytics.getInstance(this)
+
     }
 
     override fun provideCoreComponent(): CoreComponent {
